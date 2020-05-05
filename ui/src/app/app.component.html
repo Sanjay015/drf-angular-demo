@@ -1,0 +1,31 @@
+<h1>Explore California - Admin</h1>
+<div *ngIf="restApiService.loggedIn; else loginForm">
+    <nav>
+        <ul>
+            <li><a routerLink="packages">List</a></li>
+            <li><a routerLink="packages/new">Create</a></li>
+            <li><button id="logout-button" mat-flat-button color="accent" (click)="logout()">Logout</button></li>
+        </ul>
+    </nav>
+    <router-outlet></router-outlet>
+</div>
+<ng-template #loginForm>
+    <h2>Login</h2>
+    <p>
+        <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input id="username" matInput type="text" [formControl]="username" />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input id="password" matInput type="password" [formControl]="password" />
+        </mat-form-field>
+        <br />
+        <button id="login-button"
+            mat-flat-button color="accent"
+            (click)="login()">
+            Login
+        </button>
+    </p>
+</ng-template>

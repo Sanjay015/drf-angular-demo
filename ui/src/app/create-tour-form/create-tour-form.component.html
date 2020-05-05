@@ -1,0 +1,67 @@
+<h2>Create Tour Package</h2>
+<div class="form-and-preview">
+  <div class="form">
+    <h3>Form</h3>
+    <form [formGroup]="packageForm">
+      <mat-grid-list cols="5" rowHeight="20vh">
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Name:</mat-label>
+            <input matInput type="text" formControlName="name" />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field>
+                <mat-label>Category:</mat-label>
+                <input matInput type="text" formControlName="category" />
+              </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Length of Tour (in days):</mat-label>
+            <input matInput type="text" formControlName="tourLength" />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Price:</mat-label>
+            <input matInput type="text" formControlName="price" />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Promotional Description:</mat-label>
+            <textarea matInput formControlName="promo"></textarea>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <mat-form-field>
+            <mat-label>Starts On:</mat-label>
+            <input matInput type="text" formControlName="start" [matDatepicker]="startsOnDatepicker" />
+            <mat-datepicker-toggle matSuffix [for]="startsOnDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #startsOnDatepicker></mat-datepicker>
+          </mat-form-field>
+          <br />
+          <mat-label matTooltip="How difficult the tourism excursion is for a participant">Challenge Rating:</mat-label>
+          <mat-radio-group [value]="packageForm.controls.rating.value">
+            <mat-radio-button matInput value="easy">Easy</mat-radio-button>
+            <mat-radio-button value="medium">Medium</mat-radio-button>
+            <mat-radio-button value="hard">Hard</mat-radio-button>
+          </mat-radio-group>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3" class="actions">
+          <button mat-button>Cancel</button>
+          <button mat-raised-button color="primary" (click)="save()">
+            {{packageForm.get('id').value == 0 ? 'Create' : 'Update'}}
+          </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </div>
+  <div class="preview">
+    <h3>Summary Preview</h3>
+    <app-summary [tourPackage]="packageForm.getRawValue()"></app-summary>
+    <h3>Full Preview</h3>
+    <app-tour-package [tourPackage]="packageForm.getRawValue()"></app-tour-package>
+  </div>
+</div>

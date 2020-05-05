@@ -1,0 +1,17 @@
+.form-and-preview {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form {
+    flex-basis: 70%;
+}
+
+.preview {
+    flex-basis: 30%;
+}
+
+label {
+    padding: 1rem;
+}

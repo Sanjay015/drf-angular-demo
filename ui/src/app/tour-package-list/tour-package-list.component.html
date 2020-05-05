@@ -1,0 +1,61 @@
+<h2>Tours Available</h2>
+<div>
+  <h3>Filter By</h3>
+  <p>
+    Tour Length:
+    <mat-chip-list [@filterSelected]="loadingData">
+      <mat-chip [selected]="!tourLength" (click)="filterByTourLength(null)">All</mat-chip>
+      <mat-chip [selected]="tourLength === 1" (click)="filterByTourLength(1)">1 day</mat-chip>
+      <mat-chip [selected]="tourLength === 2" (click)="filterByTourLength(2)">2 days</mat-chip>
+      <mat-chip [selected]="tourLength === 3" (click)="filterByTourLength(3)">3 days</mat-chip>
+    </mat-chip-list>
+  </p>
+</div>
+
+<table mat-table [dataSource]="packages" [@tableData]="loadingData">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">
+      <a routerLink="/packages/{{element.id}}/update">{{element.name}}</a>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Price ($)</th>
+    <td mat-cell *matCellDef="let element">{{element.price|currency}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="tourLength">
+    <th mat-header-cell *matHeaderCellDef>Tour Length</th>
+    <td mat-cell *matCellDef="let element">{{element.tourLength}} days</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button color="primary"
+        matTooltip="Update this tour package's information" matTooltipPosition="before"
+        routerLink="/packages/{{element.id}}/update">
+        Edit
+      </button>
+      <button mat-button color="warn"
+        matTooltip="Delete this tour package" matTooltipPosition="above"
+        (click)="deleteTour(element)">
+        Delete
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+</table>
+
+<mat-paginator
+  [length]="totalPackages"
+  [pageIndex]="pageIndex"
+  pageSize="10"
+  hidePageSize="true"
+  showFirstLastButtons="true"
+  (page)="pageIndex = $event.pageIndex; changePage()"
+  >
+</mat-paginator>
